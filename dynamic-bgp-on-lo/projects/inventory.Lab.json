@@ -1,0 +1,55 @@
+{
+  "defaults": {
+    "lab_h1_isp1": "37.230.232.23",  
+    "lab_h2_isp1": "178.170.173.17"
+  },
+
+   "Hub": {
+ 
+     "DC2-H1": {
+       "hostname": "DC2-H1",
+       "loopback": "10.200.1.253",
+       "profile": "HubProfile",
+       "region": "Lab",
+       "isp_intf": "vl3500",
+       "lan_intf": "vl3305",
+       "lan_ip": "10.24.35.10/24",
+       "wan_ip": "37.230.232.23/27"
+     },
+ 
+     "DC3-H2": {
+       "hostname": "DC3-H2",
+       "loopback": "10.200.1.254",
+       "profile": "HubProfile",
+       "region": "Lab",
+       "isp_intf": "vl2500",
+       "lan_intf": "vl2305",
+       "lan_ip": "10.23.35.10/24",
+       "wan_ip": "178.170.173.17/27"
+     }
+   },
+ 
+   "Edge": {
+ 
+     "spoke-1": {
+       "hostname": "spoke-1",
+       "loopback": "10.200.1.1",
+       "profile": "SpokeProfile",
+       "region": "Lab",
+       "isp1_intf": "wan",
+       "isp2_intf": "wwan",
+       "lan_intf": "port1",
+       "lan_ip": "192.168.100.1/24"
+     },
+     "spoke-2": {
+       "hostname": "spoke-2",
+       "loopback": "10.200.1.2",
+       "profile": "SpokeProfile",
+       "region": "Lab",
+       "isp1_intf": "wan",
+       "isp2_intf": "wwan",
+       "lan_intf": "port1",
+       "lan_ip": "192.168.200.1/24"
+     }
+   }
+ }

@@ -1,0 +1,139 @@
+{#                            Project Template                                #}
+{# -------------------------------------------------------------------------- #}
+{# This file describes the project: its Regions, Hubs and Device Profiles     #}
+{# Normally, this is the only file that needs to be edited between            #}
+{# different projects                                                         #}
+{# -------------------------------------------------------------------------- #}
+{# Design flavor: "Dynamic BGP on Loopback"                                   #}
+{# Please contact your Fortinet representatives for more details              #}
+
+{#
+  Per-device variables used:
+  - Required:
+    - hostname
+    - loopback
+    - profile
+    - region
+    - west_h1_isp1
+    - west_h1_isp2
+    - west_h1_mpls
+    - west_h2_isp1
+    - west_h2_isp2
+    - west_h2_mpls
+    - east_h1_isp1
+    - east_h1_isp2
+    - east_h1_mpls    
+  - Depending on topology:
+    - isp1_intf
+    - isp2_intf
+    - mpls_intf
+    - lan_intf
+    - lan_ip
+    - lan2_intf
+    - lan2_ip
+#}
+
+{# Optional settings #}
+{% set cert_auth = false %}
+
+{# Optional defaults (can be overriden by profiles) #}
+{% set advpn2 = true %}
+{% set dynamic_bgp = true %}
+
+{#  Mandatory Global Definitions #}
+{% set lo_summary = '10.200.0.0/14' %}
+
+{# Regions #}
+{% set regions = {
+    'Lab': {
+      'as': '65000',
+      'lo_summary': '10.200.1.0/24',
+      'lan_summary': '192.168.0.0/16',
+      'hubs': [ 'DC2-H1', 'DC3-H2' ]
+    }
+  }
+%}
+
+{# Device Profiles #}
+{% set profiles = {
+
+    'HubProfile': {
+      'interfaces': [
+        {
+          'name': isp1_intf,
+          'role': 'wan',
+          'ol_type': 'VPN1',
+          'ip': wan_ip,
+          'dia': true
+        },
+        {
+          'name': lan_intf,
+          'role': 'lan',
+          'ip': lan_ip
+        }
+      ]
+    },
+
+    'SpokeProfile': {
+      'interfaces': [
+        {
+          'name': isp1_intf,
+          'role': 'wan',
+          'ol_type': 'VPN1',
+          'ip': 'dhcp',
+          'dia': true
+        },
+        {
+          'name': isp2_intf,
+          'role': 'wan',
+          'ol_type': 'VPN2',
+          'ip': 'dhcp',
+          'dia': true
+        },
+        {
+          'name': lan_intf,
+          'role': 'lan',
+          'ip': lan_ip
+        }
+      ]
+    }
+
+
+  }
+%}
+
+{# Hubs #}
+{% set hubs = {
+  'DC2-H1': {
+    'lo_bgp': '10.200.2.253',
+     'overlays': {
+        'VPN1': {
+          'wan_ip': wan_ip,
+          'network_id': '41',
+          'hub2hub': false
+        },
+        'VPN2': {
+          'wan_ip': wan_ip,
+          'network_id': '42',
+          'hub2hub': false
+        }
+      }
+    },
+'DC3-H2': {
+    'lo_bgp': '10.200.2.253',      
+    'overlays': {
+      'VPN1': {
+        'wan_ip': wan_ip,
+        'network_id': '41',
+        'hub2hub': false
+        },
+        'VPN2': {
+          'wan_ip': wan_ip,
+          'network_id': '42',
+          'hub2hub': false
+        }
+      }
+    }        
+
+  }
+%}
