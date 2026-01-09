@@ -1,7 +1,8 @@
 {
   "defaults": {
     "lab_h1_isp1": "37.230.232.23",  
-    "lab_h2_isp1": "178.170.173.17"
+    "lab_h2_isp1": "178.170.173.17",
+    "create_lan_dhcp_server": false
   },
 
    "Hub": {
