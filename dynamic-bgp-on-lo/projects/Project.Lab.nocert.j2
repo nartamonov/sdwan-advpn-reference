@@ -99,14 +99,42 @@
           'dia': true
         },
         {
-          'name': lan_intf,
+          'name': lan_intf1,
           'role': 'lan',
-          'ip': lan_ip
+          'ip': vlan1_ip,
+          'vlanid': 1,
+          'parent': 'port1'
+        },
+        {
+          'name': lan_intf2,
+          'role': 'lan',
+          'ip': vlan4_ip,
+          'vlanid': 4,
+          'parent': 'port1'
+        },
+        {
+          'name': lan_intf3,
+          'role': 'lan',
+          'ip': vlan18_ip,
+          'vlanid': 18,
+          'parent': 'port1'
+        },
+        {
+          'name': lan_intf4,
+          'role': 'lan',
+          'ip': vlan19_ip,
+          'vlanid': 19,
+          'parent': 'port1'
+        },
+        {
+          'name': lan_intf5,
+          'role': 'lan',
+          'ip': vlan14_ip,
+          'vlanid': 14,
+          'parent': 'port1'
         }
       ]
     }
-
-
   }
 %}
 
@@ -127,7 +155,7 @@
         }
       }
     },
-'DC3-H2': {
+  'DC3-H2': {
     'lo_bgp': '10.200.1.254',      
     'overlays': {
       'VPN1': {
@@ -141,7 +169,6 @@
           'hub2hub': false
         }
       }
-    }        
-
+    }
   }
 %}
